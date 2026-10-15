@@ -1,0 +1,70 @@
+{
+  "schoolYear": "2026/2027",
+  "groups": [
+    {
+      "key": "w2_hw1",
+      "count": 35
+    },
+    {
+      "key": "w2_hw2",
+      "count": 35
+    },
+    {
+      "key": "w2_hw3",
+      "count": 35
+    },
+    {
+      "key": "w2_hw4",
+      "count": 35
+    },
+    {
+      "key": "w3_hw1",
+      "count": 35
+    },
+    {
+      "key": "w3_hw2",
+      "count": 35
+    },
+    {
+      "key": "w3_hw3",
+      "count": 35
+    },
+    {
+      "key": "w3_hw4",
+      "count": 35
+    },
+    {
+      "key": "w4_hw1",
+      "count": 40
+    },
+    {
+      "key": "w4_hw2",
+      "count": 40
+    },
+    {
+      "key": "w4_hw3",
+      "count": 40
+    },
+    {
+      "key": "w4_hw4",
+      "count": 40
+    },
+    {
+      "key": "w6_hw1",
+      "count": 50
+    },
+    {
+      "key": "w6_hw2",
+      "count": 50
+    },
+    {
+      "key": "w6_hw3",
+      "count": 50
+    },
+    {
+      "key": "w6_hw4",
+      "count": 50
+    }
+  ],
+  "wordCount": 640
+}

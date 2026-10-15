@@ -1,0 +1,7 @@
+# AI 協作資料與本機筆記（不入版控）
+.workbuddy/
+
+# 依賴與系統暫存
+node_modules/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,2 @@
+# Preserve existing CRLF app.js and validate its actual trailing spaces.
+js/app.js whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
