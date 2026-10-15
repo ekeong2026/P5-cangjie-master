@@ -88,19 +88,19 @@ window.P5_MODES = window.P5_MODES || [
     }
   },
   {
-    // 站 4：字形特徵原則。字庫 28 字已就緒（js/data.js 的 feature_words）。
+    // 站 4：字形神探（字形特徵原則）。字庫 28 字已就緒（js/data.js 的 feature_words）。
     // 與站 3 一樣，加這個模式沒有動到後端任何一行。
     id: 'feature', line: 'main', order: 4, ui: 4, mech: 'code', visible: true,
     pool: 'feature_words',
     completeAt: 250,
-    icon: '🔷', name: '字形特徵原則', short: '字形特徵原則', badge: '取碼原則',
-    note: '每個字每天最多計 <strong>3 次</strong>：第 1 次全額，第 2 次一半，第 3 次四分之一。'
-      + '練滿 3 次之後只算練習、不再加分，明天重新開始。',
+    icon: '🕵️', name: '字形神探', short: '字形神探', badge: '字形特徵原則',
+    note: '看清楚每個字的<strong>字形特徵</strong>，判斷哪個取碼才正確——做個出色的字形神探！'
+      + '分數規則是每個字每天最多計 <strong>3 次</strong>、第 1 次全額、之後遞減（與其他模式相同）。',
     view: {
-      monster: '🔷', color: '#1D4ED8', orbPrefix: 'feat',
+      monster: '🕵️', color: '#1D4ED8', orbPrefix: 'feat',
       slots: ['① 首碼', '② 次碼', '③ 三碼', '④ 尾碼', '⑤ 五碼', '⑥ 六碼'],
       baseScore: 15, minBase: 3,
-      hint: '【字形特徵原則】 取碼長度：{len} 碼 ｜ 依字形特徵取碼！',
+      hint: '【字形神探】 取碼長度：{len} 碼 ｜ 依字形特徵取碼！',
       prompt: '請依字形特徵捕捉【 {char} 】的 {len} 碼倉頡字根！'
     }
   },

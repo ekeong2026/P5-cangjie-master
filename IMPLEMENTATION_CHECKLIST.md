@@ -458,7 +458,7 @@
 **性質：純前端。後端零改動、不重新部署。**
 
 - [x] `js/modes.js`：新增 `feature`（`order:4, ui:4, mech:'code', pool:'feature_words', visible:true`，
-      icon 🔷、color #1D4ED8、自訂 hint／prompt）。
+      icon 🕵️、color #1D4ED8、自訂 hint／prompt）。
 - [x] `js/modes.js`：`special` ui **4→5**、`speed` ui **5→6**（挑戰線仍在最後）。
 - [x] `js/data.js`：**未改**（`feature_words` 28 字早已就緒）。
 - [x] `apps-script/*.gs`：**未改、未重新部署**。
@@ -959,3 +959,9 @@
 - 舊值：連體150／**突圍 250（例外）**／字形150／寵物150／生存150／難字150（唔一致）。
 - 新值（沿顯示順序每關 +50）：**連體 150 → 突圍 200 → 字形 250 → 寵物 300 → 生存 350 → 難字 400**。
 - 「還差 N 分」＝**前一站**尚欠分數（語意不變）；相關測試同步更新，並新增「沿顯示順序不得遞減」守門測試。
+
+## 站 4 改名（2026-10-15）
+
+- 「字形特徵原則」→ **「字形神探」**（`icon` 與 `view.monster` 一併轉 🕵️）；教學關鍵字保留於 badge「字形特徵原則」、hint 與字庫 `secret`。
+- 計分說明改為主題句（原本為最泛用的句子）；`hint` 同步用新名。
+- 測試斷言同步（browser-modes：分頁文字改驗「字形神探」＋新增 badge 保留檢查＋hint；modes.test：分頁 name）。

@@ -342,7 +342,8 @@ test('學生看到的分頁文字即模式的 name（無編號），且說明非
     assert.ok(m.note && m.note.length > 0, `${m.id} 缺少計分說明 note`);
   });
   assert.equal(tabs.find(m => m.id === 'abbrev').name, '文字突圍');
-  assert.equal(tabs.find(m => m.id === 'feature').name, '字形特徵原則');
+  assert.equal(tabs.find(m => m.id === 'feature').name, '字形神探');
+  assert.equal(tabs.find(m => m.id === 'feature').badge, '字形特徵原則', 'badge 保留教學關鍵字');
 });
 
 /* ── 槽位容量守門（回歸：站 3 的 5 碼字曾讓第 5 碼找不到槽位而崩掉整局）──

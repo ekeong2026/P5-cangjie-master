@@ -124,7 +124,7 @@ function makeStaticServer(gasUrl) {
       Array.from(document.querySelectorAll('.mode-tab-btn')).map(b => b.textContent));
     tabTexts.forEach(t => assert.ok(!/模式\s*\d/.test(t), '分頁文字不得含模式編號：' + t));
     assert.match(tabTexts[1], /文字突圍/, '第二個分頁是站 3 法陣守衛戰模式');
-    assert.match(tabTexts[2], /字形特徵原則/, '第三個分頁是字形特徵模式');
+    assert.match(tabTexts[2], /字形神探/, '第三個分頁是字形神探');
     assert.match(tabTexts[3], /倉頡寵物/, '第四個分頁是包含省略（寵物養成）模式');
     assert.match(tabTexts[4], /倉頡生存挑戰/, '第五個分頁是站 6 生存挑戰（由挑戰線搬入主線）');
     assert.match(tabTexts[5], /難字與複合字特訓/, '第六個分頁是站 7 難字特訓');
@@ -517,7 +517,7 @@ function makeStaticServer(gasUrl) {
       '★ round 每一筆都要帶 earned（全 0 是 2026-10-14 修掉的舊 bug）：' + JSON.stringify(payload.round));
     assert.ok(payload.round.some(r => r.char === siegeSpawned.char), '第一次擊破的字應在 round 裡');
 
-    // ── ④ 站 4：字形特徵原則（mech=code，新開的模式）──
+    // ── ④ 站 4：字形神探（原字形特徵原則；mech=code）──
     const featureView = await page.evaluate(() => {
       setGameMode('feature');
       const four = DATA.feature_words.filter(w => (w.codes || []).length === 4)[0];
@@ -536,8 +536,8 @@ function makeStaticServer(gasUrl) {
         activeTab: (document.getElementById('mode-tab-feature') || {}).className || ''
       };
     });
-    assert.equal(featureView.monster, '🔷', '字形特徵模式有自己的怪獸圖示');
-    assert.match(featureView.hint, /字形特徵原則/, '提示文字取自註冊表 view.hint');
+    assert.equal(featureView.monster, '🕵️', '字形神探有自己的怪獸圖示');
+    assert.match(featureView.hint, /字形神探/, '提示文字取自註冊表 view.hint');
     assert.match(featureView.prompt, /字形特徵/, '題目提示取自註冊表 view.prompt');
     assert.equal(featureView.codeLen, 4, '已強制抽到 4 碼字形特徵字');
     assert.deepEqual(featureView.labels, ['① 首碼', '② 次碼', '③ 三碼', '④ 尾碼'], '字形特徵模式槽位標籤');
