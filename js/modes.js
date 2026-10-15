@@ -42,7 +42,9 @@ window.P5_MODES = window.P5_MODES || [
     id: 'connected', line: 'main', order: 1, ui: 1, mech: 'code', visible: true,
     pool: 'connected_words',
     // completeAt：本站（本機）累積分達此值 ⇒ 視為「完成」，下一關才開啓。
-    // 解鎖鏈＝可見主線的顯示順序，門檻逐關可調；挑戰線不設門檻。
+    // 解鎖鏈＝可見主線的顯示順序；門檻沿顯示順序**遞增**（2026-10-15 定案）：
+    //   連體字 150 → 文字突圍 200 → 字形特徵 250 → 寵物 300 → 生存 350 → 難字 400。
+    // 「還差 N 分」顯示的是**前一站**尚欠的分數。挑戰線不設門檻。
     completeAt: 150,
     icon: '⚔️', name: '連體字全碼突破', short: '連體字全碼突破', badge: '1~4碼連擊',
     note: '每個字每天最多計 <strong>3 次</strong>：第 1 次全額，第 2 次一半，第 3 次四分之一。'
@@ -73,7 +75,7 @@ window.P5_MODES = window.P5_MODES || [
     // 計分完全沿用 code 那條路（送 round 給後端），後端零改動。
     id: 'abbrev', line: 'main', order: 3, ui: 3, mech: 'siege', visible: true,
     pool: 'abbrev_words',
-    completeAt: 250,
+    completeAt: 200,
     icon: '🧙', name: '文字突圍', short: '文字突圍', badge: '字靈倖存者',
     note: '字靈會從四面八方湧向中央法陣！依<strong>精簡／先繁後簡</strong>原則拆碼，'
       + '把一個字的字根<strong>完整打完</strong>才能擊破一隻字靈（中途按錯要重新拆解）。'
@@ -90,7 +92,7 @@ window.P5_MODES = window.P5_MODES || [
     // 與站 3 一樣，加這個模式沒有動到後端任何一行。
     id: 'feature', line: 'main', order: 4, ui: 4, mech: 'code', visible: true,
     pool: 'feature_words',
-    completeAt: 150,
+    completeAt: 250,
     icon: '🔷', name: '字形特徵原則', short: '字形特徵原則', badge: '取碼原則',
     note: '每個字每天最多計 <strong>3 次</strong>：第 1 次全額，第 2 次一半，第 3 次四分之一。'
       + '練滿 3 次之後只算練習、不再加分，明天重新開始。',
@@ -108,7 +110,7 @@ window.P5_MODES = window.P5_MODES || [
     // 計分完全沿用 code 那條路（送 round 給後端），後端零改動。
     id: 'omit', line: 'main', order: 5, ui: 5, mech: 'pet', visible: true,
     pool: 'omit_words',
-    completeAt: 150,
+    completeAt: 300,
     icon: '🐣', name: '倉頡寵物', short: '倉頡寵物', badge: '養成進化',
     note: '打對每個字 = 餵寵物一口，經驗增加、寵物會<strong>進化變身</strong>。'
       + '分數規則是每個字每天最多計 <strong>3 次</strong>、第 1 次全額、之後遞減（與其他模式相同）。',
@@ -128,7 +130,7 @@ window.P5_MODES = window.P5_MODES || [
     // 計分完全沿用 code 那條路（送 round 給後端），後端零改動。
     id: 'survival', line: 'main', order: 6, ui: 6, mech: 'survival', visible: true,
     pool: 'connected_words',
-    completeAt: 150,
+    completeAt: 350,
     icon: '💀', name: '倉頡生存挑戰', short: '倉頡生存挑戰', badge: '5條命 連擊倍率',
     note: '有 <strong>5 條命</strong>：答錯一個鍵扣 <strong>1 條命</strong>並打斷連擊，命用完即結束。'
       + '連續答對累積<strong>連擊</strong>：連擊 5 → ×1.5、10 → ×2、20 → ×3'
@@ -144,7 +146,7 @@ window.P5_MODES = window.P5_MODES || [
     // ui=7：站 6 由生存挑戰進駐後，難字順移一位。
     id: 'special', line: 'main', order: 7, ui: 7, mech: 'code', visible: true,
     pool: 'special_words',
-    completeAt: 150,
+    completeAt: 400,
     icon: '🔮', name: '難字與複合字特訓', short: '難字與複合字特訓', badge: 'X難字/複合',
     note: '難字與複合字同樣每個字每天最多計 <strong>3 次</strong>（第 1 次全額，之後每次減半）；'
       + '練滿 3 次後仍可繼續練熟它，只是不再加分。',

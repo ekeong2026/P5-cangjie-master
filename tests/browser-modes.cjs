@@ -178,7 +178,7 @@ function makeStaticServer(gasUrl) {
     // 生存已於 2026-10-14 由挑戰線搬入主線（真實站 6）⇒ 編號與門檻比照主線。
     assert.equal(lockView.survival.chip, '5', '生存是主線第 5 個可見關卡（真實站號 6）');
     assert.equal(lockView.survival.locked, true, 'omit 只有 0 分 ⇒ 生存未開啓');
-    assert.match(lockView.survival.text, /還差 150 分/, '生存未開啓顯示還差 150 分（＝寵物的門檻）');
+    assert.match(lockView.survival.text, /還差 300 分/, '生存未開啓顯示還差 300 分（＝寵物 omit 的門檻）');
     assert.equal(lockView.survival.disabled, false, '軟鎖：未開啓的關卡不得停用');
     assert.equal(lockView.special.chip, '6', '難字順移為第 6 個可見關卡（真實站號 7）');
     assert.equal(lockView.special.locked, true, '生存 0 分 ⇒ 難字也未開啓');
@@ -217,17 +217,17 @@ function makeStaticServer(gasUrl) {
     assert.ok(!/還差/.test(unlocked.text), '開啓後不應再顯示「還差」：' + unlocked.text);
     assert.equal(unlocked.chip, '2', '開啓後仍保留關卡編號');
 
-    // 站 6 的門檻：把寵物補到 150 ⇒ 生存跟著自動開啓（解鎖鏈多一節仍然自動接上）
+    // 站 6 的門檻：把寵物補到 300 ⇒ 生存跟著自動開啓（解鎖鏈多一節仍然自動接上）
     const survivalUnlock = await page.evaluate(() => {
       const before = document.getElementById('mode-tab-survival').classList.contains('locked');
-      saveStudentStats('P5A', 1, 150, false, 'omit');
+      saveStudentStats('P5A', 1, 300, false, 'omit');
       const tab = document.getElementById('mode-tab-survival');
       const chip = tab.querySelector('.mode-stage-chip');
       return { before: before, after: tab.classList.contains('locked'),
         chip: chip ? chip.textContent : null, text: tab.textContent };
     });
     assert.equal(survivalUnlock.before, true, '補分前生存（站 6）是鎖的');
-    assert.equal(survivalUnlock.after, false, 'omit 達 150 分後生存自動開啓');
+    assert.equal(survivalUnlock.after, false, 'omit 達 300 分後生存自動開啓');
     assert.ok(!/還差/.test(survivalUnlock.text), '開啓後不應再顯示「還差」：' + survivalUnlock.text);
     assert.equal(survivalUnlock.chip, '5', '開啓後仍保留主線編號（真實站號 6、畫面顯示第 5 關）');
 
@@ -980,9 +980,9 @@ function makeStaticServer(gasUrl) {
     assert.equal(mockMerged.connected, 210, '雲端分項分數應併入本機（換電腦回復進度）');
     assert.equal(mockMerged.stored, 210, '雲端分項要寫回 localStorage（離線後仍保得住）');
     assert.equal(mockMerged.abbrevLocked, false, 'connected 雲端 210 ≥ 150 ⇒ 第二關開啓');
-    assert.equal(mockMerged.featureLocked, true, 'abbrev 未達 250 ⇒ 第三關仍鎖');
+    assert.equal(mockMerged.featureLocked, true, 'abbrev 未達 200 ⇒ 第三關仍鎖');
     assert.equal(mockMerged.featureHard, true, '有雲端權威分數且已登入 ⇒ 第三關是真鎖');
-    assert.match(mockMerged.featureText, /還差 250 分/);
+    assert.match(mockMerged.featureText, /還差 200 分/);
 
     // ③ 真鎖：點未達標的關卡 → 不切換、只出提示
     const mockHardClick = await mp.evaluate(() => {

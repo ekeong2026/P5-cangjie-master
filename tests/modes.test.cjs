@@ -643,3 +643,16 @@ test('雲端分項併入後會寫回本機（離線／重整保得住解鎖進�
   assert.ok(/if \(cloudMerged\)/.test(fn), '有變動就要寫回 SafeStorage');
   assert.ok(fn.includes('SafeStorage.setItem(key, JSON.stringify(stats))'), '寫回要用同一個 key');
 });
+
+/* ── 門檻遞增（2026-10-15 使用者定案：沿顯示順序每關 +50）── */
+test('解鎖鏈：門檻沿顯示順序不得遞減，且尾關高於首關（遞增而非全平）', () => {
+  const { P5Mode } = load();
+  const seq = Array.from(P5Mode.mainSequence());
+  const vals = seq.map(m => P5Mode.completeAtOf(m.id));
+  for (let i = 1; i < vals.length; i++) {
+    assert.ok(vals[i] >= vals[i - 1],
+      `第 ${i + 1} 關（${seq[i].id}）門檻 ${vals[i]} 不得低於前一關 ${vals[i - 1]}`);
+  }
+  assert.ok(vals[vals.length - 1] > vals[0],
+    `尾關門檻（${vals[vals.length - 1]}）應高於首關（${vals[0]}）`);
+});

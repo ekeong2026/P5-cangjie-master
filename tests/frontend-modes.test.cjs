@@ -165,7 +165,7 @@ test('分頁列與計分說明由註冊表生成，新可見模式自動出現�
   const text = demo.children.map(c => c.nodeValue || c.textContent).join('');
   assert.match(text, /🆕/);
   assert.match(text, /模式 4：新原則特訓/);
-  assert.match(text, /還差 150 分/, '未開啓的關卡要顯示還差幾分（門檻來自前一站的 completeAt）');
+  assert.match(text, /還差 250 分/, '未開啓的關卡要顯示還差幾分（門檻來自前一站 feature 的 completeAt）');
   assert.ok(demo.className.includes('locked'), '未達門檻的主線關卡應標為 locked');
   const chip = demo.children.find(c => c.className && c.className.includes('mode-stage-chip'));
   assert.equal(chip.textContent, '4', '關卡編號依顯示順序自動生成');
@@ -216,15 +216,15 @@ test('解鎖：前一站達門檻後，這一關自動開啓（由分數即時�
   run(s, 'renderModeTabs()');
   const find = id => document._bar.children.find(b => b.id === 'mode-tab-' + id);
 
-  // connected 達 150 ⇒ 下一關 abbrev 開啓；abbrev 未達 250 ⇒ feature 仍鎖
+  // connected 達 150 ⇒ 下一關 abbrev 開啓；abbrev 未達 200 ⇒ feature 仍鎖
   assert.ok(!find('abbrev').className.includes('locked'), 'connected 達標後 abbrev 應開啓');
   assert.ok(find('feature').className.includes('locked'), 'abbrev 未達標，feature 仍鎖');
   assert.match(find('feature').children.map(c => c.nodeValue || c.textContent).join(''),
-    /還差 250 分/, 'feature 的門檻來自 abbrev 的 completeAt=250');
+    /還差 200 分/, 'feature 的門檻來自 abbrev 的 completeAt=200');
 
   // 再補上 abbrev 的分數 ⇒ feature 開啓
   s.localStorage.setItem('p5_score_P5A_1', JSON.stringify({
-    totalScore: 400, kills: 0, modeScores: { connected: 150, abbrev: 250 }
+    totalScore: 350, kills: 0, modeScores: { connected: 150, abbrev: 200 }
   }));
   run(s, 'renderModeTabs()');
   assert.ok(!document._bar.children.find(b => b.id === 'mode-tab-feature').className.includes('locked'),
