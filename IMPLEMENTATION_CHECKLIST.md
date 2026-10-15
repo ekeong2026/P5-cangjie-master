@@ -766,7 +766,7 @@
 
 - **規則只寫一次**（`js/modes.js`）：主線**顯示順序**中，前一站的本機累積分 ≥ 它的
   `completeAt` ⇒ 這一站才開啓；第一站永遠開啓。
-  `completeAt`：連體字 150／文字突圍 250／字形特徵 150／寵物 150／難字 150。
+  `completeAt`（沿顯示順序遞增，2026-10-15 定案）：連體字 150 → 文字突圍 200 → 字形特徵 250 → 寵物 300 → 生存 350 → 難字 400。
 - **解鎖狀態即時由分數算出，不存旗標** ⇒ 不會出現「有分數卻顯示沒解鎖」，也不必遷移舊資料。
 - **解鎖鏈順序 ＝ 分頁顯示順序**（不是 `order`）⇒ 日後插入新站會自動接上、編號自動重排。
 - **軟鎖而非硬鎖**的三個理由（歷史記錄；當晚已升級「真鎖＋安全網」——離線仍會退回軟鎖，見文末）：
@@ -884,7 +884,7 @@
 - `special`（難字）：`ui` 6 → **7**（真實站 7 不動）；`speed`：`ui` 7 → **8**（挑戰線只剩它）。
 - **玩法、字庫（`connected_words`）、計分完全不動**；`js/app.js` 一行未改
   （分頁晶片／解鎖／軟鎖全由註冊表推導）；後端零改動、不需重新部署。
-- 解鎖鏈：…寵物(5) → **生存(6)** → 難字(7)。生存未達標顯示「🔒 還差 150 分」（＝寵物門檻）。
+- 解鎖鏈：…寵物(5) → **生存(6)** → 難字(7)。生存未達標顯示「🔒 還差 300 分」（＝寵物門檻）。
 
 ## ⚠ 畫面編號會「壓縮」（學生看到的是第 5 關）
 
@@ -941,4 +941,21 @@
       後端 `grep -c -E "cloudScoresKnown|hard-locked|unlock_all|teacher" apps-script/*.gs` **全 0**。
 - [x] 截圖：`docs/unlock-hardlock.png`（連體字雲端 210 分：2 開、3–6 真鎖「還差 N 分」、挑戰不鎖）、
       `docs/unlock-teacher.png`（教師全開：0 鎖＋左下角徽章）。
-- 未 Commit、未 Push、未部署。
+- **已於 2026-10-15 上線部署**（新 repo `P5-cangjie-master`；詳見文末「上線部署」章）。
+
+---
+
+# 🚀 上線部署完成（2026-10-15）
+
+- **新 Repository**：`ekeong2026/P5-cangjie-master`（公開）⇒ `origin`；**正式網站**：<https://ekeong2026.github.io/P5-cangjie-master/>。
+- **首發推送**：`b80def6`（70 檔）；舊 repo／歷史保留於 `legacy-origin`／`main-legacy`；網址已同步 README／SOP／AGENTS。
+- **自動部署**：`.github/workflows/pages.yml` —— Push 至 `main` 即自動發布。
+- **首次部署修復**：Setup Pages 失敗（`Resource not accessible by integration`——`GITHUB_TOKEN` 不能建立 Pages site）⇒ 以 owner token：`PUT /actions/permissions/workflow`（write）＋ `POST /pages`（`build_type=workflow`）＋ 重跑 ⇒ 成功。
+- **線上實測**（Playwright 真實瀏覽器）：標題、7 分頁、真鎖「還差 N 分」、`CONFIG` 兩後端已配置、登入成功、零 page error；網站 HTTP 200（82,018 B）；截圖 `docs/deployed-home.png`。
+- **互動授權備忘**：`git credential-manager github login --device`（**勿加 `--no-ui`**）⇒ 彈桌面視窗；憑證已存 GCM（`gho_`、`repo+workflow`），之後 push 免再授權。
+
+## 解鎖門檻改為遞增（2026-10-15 定案）
+
+- 舊值：連體150／**突圍 250（例外）**／字形150／寵物150／生存150／難字150（唔一致）。
+- 新值（沿顯示順序每關 +50）：**連體 150 → 突圍 200 → 字形 250 → 寵物 300 → 生存 350 → 難字 400**。
+- 「還差 N 分」＝**前一站**尚欠分數（語意不變）；相關測試同步更新，並新增「沿顯示順序不得遞減」守門測試。
